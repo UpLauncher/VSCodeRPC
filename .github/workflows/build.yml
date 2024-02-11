@@ -35,9 +35,9 @@ jobs:
             dist
 
       - name: Edit AutoBuild Release
-              run: |
-                  gh release upload autobuild --clobber *.vsix
-                  gh release edit autobuild --title "AutoBuild - $RELEASE_TAG"
-              env:
-                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
-                  RELEASE_TAG: ${{ env.release_tag }}
+        run: |
+            gh release upload autobuild --clobber *.vsix
+            gh release edit autobuild --title "AutoBuild - $RELEASE_TAG"
+        env:
+            GITHUB_TOKEN: ${{ secrets.TOKEN }}
+            RELEASE_TAG: ${{ env.release_tag }}
