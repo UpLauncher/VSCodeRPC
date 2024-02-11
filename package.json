@@ -2,7 +2,7 @@
   "name": "vscoderpc",
   "displayName": "VS Code RPC",
   "description": "%vscoderpc.description%",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "publisher": "theuplauncher",
   "repository": {
     "url": "https://github.com/uplauncher/vscoderpc"
