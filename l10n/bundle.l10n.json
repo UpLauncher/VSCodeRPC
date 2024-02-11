@@ -9,6 +9,7 @@
   "Away from the window. (File: {0})": "Away from the window. (File: {0})",
   "Away from the window. (No active files.)": "Away from the window. (No active files.)",
   "RPC has been initiated.": "RPC has been initiated.",
+  "RPC has been reconnected.": "RPC has been reconnected.",
   "RPC has been stopped.": "RPC has been stopped.",
   "Error during Toggle Private Mode: {0}": "Error during Toggle Private Mode: {0}"
 }

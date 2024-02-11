@@ -9,6 +9,7 @@
   "Away from the window. (File: {0})": "離席中 (ファイル: {0})",
   "Away from the window. (No active files.)": "離席中 (アクティブなファイルなし)",
   "RPC has been initiated.": "Discord RPCが開始されました。",
+  "RPC has been reconnected.": "Discord RPCが再接続されました。",
   "RPC has been stopped.": "Discord RPCが停止しました。",
   "Error during Toggle Private Mode: {0}": "プライベートモードを切り替えているときにエラーが発生しました: {0}"
 }

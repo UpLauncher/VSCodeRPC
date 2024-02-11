@@ -246,7 +246,7 @@ async function registerCommands(context: ExtensionContext) {
         await rpc.login().then(() => {
           updateRPC(window.activeTextEditor?.document);
         });
-        window.showInformationMessage("RPC has been reconnected.");
+        window.showInformationMessage(l10n.t("RPC has been reconnected."));
         logInfo("RPC reconnected.");
       } catch (e: any) {
         //If there is an error, log it and show an error message

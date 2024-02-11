@@ -1,7 +1,7 @@
 {
   "name": "vscoderpc",
   "displayName": "VS Code RPC",
-  "description": "Discord Rich Presence available in VS Code.",
+  "description": "%vscoderpc.description%",
   "version": "1.3.3",
   "publisher": "theuplauncher",
   "repository": {
@@ -35,16 +35,19 @@
         "vscoderpc.enabled": {
           "type": "boolean",
           "default": false,
+          "title": "%vscoderpc.enableTitle%",
           "description": "%vscoderpc.enableDescription%"
         },
         "vscoderpc.privateMode": {
           "type": "boolean",
           "default": false,
-          "description": "%vscoderpc.privateModeDescription%"
+          "title": "%vscoderpc.privateModeTitle%",
+          "description": "%vscoderpc.privatemodeDescription%"
         },
         "vscoderpc.clientId": {
           "type": "string",
           "default": "1147502929687875614",
+          "title": "%vscoderpc.clientIdTitle%",
           "description": "%vscoderpc.clientIdDescription%"
         }
       }
