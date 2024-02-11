@@ -1,0 +1,14 @@
+{
+  "In workspace {0}.": "In workspace {0}.",
+  "There is no active workspace.": "There is no active workspace.",
+  "Editing file {0}.": "Editing file {0}.",
+  "There are no active files.": "There are no active files.",
+  "Private mode is enabled.": "Private mode is enabled.",
+  "Error during Discord RPC connection: {0}": "Error during Discord RPC connection: {0}",
+  "Reconnect": "Reconnect",
+  "Away from the window. (File: {0})": "Away from the window. (File: {0})",
+  "Away from the window. (No active files.)": "Away from the window. (No active files.)",
+  "RPC has been initiated.": "RPC has been initiated.",
+  "RPC has been stopped.": "RPC has been stopped.",
+  "Error during Toggle Private Mode: {0}": "Error during Toggle Private Mode: {0}"
+}

@@ -1,0 +1,14 @@
+{
+  "In workspace {0}.": "ワークスペース: {0}",
+  "There is no active workspace.": "アクティブなワークスペースはありません。",
+  "Editing file {0}.": "ファイル {0} を編集中。",
+  "There are no active files.": "アクティブなファイルはありません。",
+  "Private mode is enabled.": "プライベートモードが有効です。",
+  "Error during Discord RPC connection: {0}": "Discord RPC接続中のエラー: {0}",
+  "Reconnect": "再接続",
+  "Away from the window. (File: {0})": "離席中 (ファイル: {0})",
+  "Away from the window. (No active files.)": "離席中 (アクティブなファイルなし)",
+  "RPC has been initiated.": "Discord RPCが開始されました。",
+  "RPC has been stopped.": "Discord RPCが停止しました。",
+  "Error during Toggle Private Mode: {0}": "プライベートモードを切り替えているときにエラーが発生しました: {0}"
+}

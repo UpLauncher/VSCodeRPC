@@ -16,6 +16,15 @@
 				"${workspaceFolder}/dist/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
+		},
+		{
+			"name": "パッケージする",
+			"request": "launch",
+			"type": "node",
+			"program": "C:\\Users\\prira\\AppData\\Local\\pnpm\\global\\5\\node_modules\\@vscode\\vsce\\vsce",
+			"args": [
+				"package"
+			],
 		}
 	]
 }

@@ -9,12 +9,17 @@ import {
   TextDocument,
   version,
   commands,
+  ConfigurationTarget,
+  l10n,
 } from "vscode";
 import { extname, basename } from "path";
 import { Client } from "@xhayper/discord-rpc";
+import axios from "axios";
 
 let rpc = new Client({
-  clientId: workspace.getConfiguration("vscoderpc").get("clientId") || "1147502929687875614",
+  clientId:
+    workspace.getConfiguration("vscoderpc").get("clientId") ||
+    "1147502929687875614",
 });
 
 //Idle checker
@@ -61,18 +66,18 @@ function logError(message: string) {
 async function updateRPC(vscodeTextDocument: TextDocument | undefined) {
   try {
     const configuration = workspace.getConfiguration("vscoderpc");
-    console.log(window.activeTextEditor?.document.uri.fsPath);
     if (vscodeTextDocument?.fileName && !configuration.get("privateMode")) {
       //If the file is not empty and private mode is not enabled
       rpc.user?.setActivity({
         details: workspace.name
-          ? `In workspace "${workspace.name}".`
-          : "There is no active workspace.",
-        state: `Editing file "${basename(vscodeTextDocument.fileName)}".`,
+          ? l10n.t(`In workspace {0}.`, workspace.name)
+          : l10n.t(`There is no active workspace.`),
+        state: l10n.t(
+          `Editing file {0}.`,
+          basename(vscodeTextDocument.fileName)
+        ),
         startTimestamp: date,
-        largeImageKey: `https://raw.githubusercontent.com/LeonardSSH/vscord/main/assets/icons/${extname(
-          vscodeTextDocument?.uri.fsPath
-        ).replace(".", "")}.png`,
+        largeImageKey: (await getExtensionIconURL()) || "vscode",
         largeImageText: `Extension: ${vscodeTextDocument.languageId}`,
       });
     } else if (
@@ -82,9 +87,9 @@ async function updateRPC(vscodeTextDocument: TextDocument | undefined) {
       //If the file is empty and private mode is not enabled
       rpc.user?.setActivity({
         details: workspace.name
-          ? `In workspace ${workspace.name}.`
-          : "There is no active workspace.",
-        state: `There are no active files.`,
+        ? l10n.t(`In workspace {0}.`, workspace.name)
+        : l10n.t(`There is no active workspace.`),
+        state: l10n.t(`There are no active files.`),
         startTimestamp: date,
         largeImageKey: "vscode",
         largeImageText: `Visual Studio Code v${version}`,
@@ -92,7 +97,7 @@ async function updateRPC(vscodeTextDocument: TextDocument | undefined) {
     } else {
       //If private mode is enabled
       rpc.user?.setActivity({
-        state: `Private mode is enabled.`,
+        state: l10n.t(`Private mode is enabled.`),
         startTimestamp: date,
         largeImageKey: "vscode",
         largeImageText: `Visual Studio Code v${version}`,
@@ -104,9 +109,9 @@ async function updateRPC(vscodeTextDocument: TextDocument | undefined) {
     if (e.toString().includes("reading 'fileName")) {
       rpc.user?.setActivity({
         details: workspace.name
-          ? `In workspace ${workspace.name}.`
-          : "There is no active workspace.",
-        state: `There are no active files.`,
+        ? l10n.t(`In workspace {0}.`, workspace.name)
+        : l10n.t(`There is no active workspace.`),
+        state: l10n.t(`There are no active files.`),
         startTimestamp: date,
         largeImageKey: "vscode",
         largeImageText: `Visual Studio Code v${version}`,
@@ -114,10 +119,8 @@ async function updateRPC(vscodeTextDocument: TextDocument | undefined) {
       return;
     }
     const result = await window.showErrorMessage(
-      `Error during Discord RPC connection: ${
-        e.name
-      } (Error Details: ${e.toString()})`,
-      "Reconnect"
+      l10n.t("Error during Discord RPC connection: {0}", e.name),
+      l10n.t("Reconnect")
     );
     if (result === "Reconnect") {
       //If the user clicks "Reconnect", reconnect the RPC
@@ -134,26 +137,25 @@ async function notFocusedRPC() {
       //If the file is not empty and private mode is not enabled
       rpc.user?.setActivity({
         details: workspace.name
-          ? `In workspace "${workspace.name}".`
-          : "There is no active workspace.",
-        state: `Away from the window. (File: "${basename(
-          window.activeTextEditor?.document.fileName
-        )}")`,
+        ? l10n.t(`In workspace {0}.`, workspace.name)
+        : l10n.t(`There is no active workspace.`),
+        state: l10n.t(
+          `Away from the window. (File: {0})`,
+          basename(window.activeTextEditor?.document.fileName)
+        ),
         startTimestamp: date,
         smallImageKey: "idle",
         smallImageText: "Away",
-        largeImageKey: `https://raw.githubusercontent.com/LeonardSSH/vscord/main/assets/icons/${extname(
-          window.activeTextEditor?.document.uri.fsPath
-        ).replace(".", "")}.png`,
+        largeImageKey: (await getExtensionIconURL()) || "vscode",
         largeImageText: `Extension: ${window.activeTextEditor?.document.languageId}`,
       });
     } else {
       //If the file is empty and private mode is not enabled
       rpc.user?.setActivity({
         details: workspace.name
-          ? `In workspace ${workspace.name}.`
-          : "There is no active workspace.",
-        state: `Away from the window. (No Active files)`,
+        ? l10n.t(`In workspace {0}.`, workspace.name)
+        : l10n.t(`There is no active workspace.`),
+        state: l10n.t(`Away from the window. (No active files.)`),
         startTimestamp: date,
         smallImageKey: "idle",
         smallImageText: "Away",
@@ -170,8 +172,8 @@ async function notFocusedRPC() {
     //If there is an error, log it and show an error message
     logError(e);
     const result = await window.showErrorMessage(
-      `Error during Discord RPC connection: ${e.name}`,
-      "Reconnect"
+      l10n.t("Error during Discord RPC connection: {0}", e.name),
+      l10n.t("Reconnect")
     );
     if (result === "Reconnect") {
       //If the user clicks "Reconnect", reconnect the RPC
@@ -188,7 +190,9 @@ async function registerCommands(context: ExtensionContext) {
     try {
       //Destroy the current RPC
       rpc = new Client({
-        clientId: workspace.getConfiguration("vscoderpc").get("clientId") || "1147502929687875614",
+        clientId:
+          workspace.getConfiguration("vscoderpc").get("clientId") ||
+          "1147502929687875614",
       });
 
       //Set the date to the current date
@@ -198,15 +202,13 @@ async function registerCommands(context: ExtensionContext) {
       await rpc.login().then(() => {
         updateRPC(window.activeTextEditor?.document);
       });
-      window.showInformationMessage("RPC has been initiated.");
+      window.showInformationMessage(l10n.t("RPC has been initiated."));
     } catch (e: any) {
       //If there is an error, log it and show an error message
       logError(e);
       const result = await window.showErrorMessage(
-        `Error during Discord RPC connection: ${
-          e.name
-        } (Error Details: ${e.toString()})`,
-        "Reconnect"
+        l10n.t("Error during Discord RPC connection: {0}", e.name),
+        l10n.t("Reconnect")
       );
       if (result === "Reconnect") {
         //If the user clicks "Reconnect", reconnect the RPC
@@ -220,7 +222,7 @@ async function registerCommands(context: ExtensionContext) {
   let stopRPC = commands.registerCommand("vscoderpc.stoprpc", () => {
     //Destroy the current RPC
     rpc.destroy();
-    window.showInformationMessage("RPC has been stopped.");
+    window.showInformationMessage(l10n.t("RPC has been stopped."));
   });
 
   //Reload RPC
@@ -250,8 +252,8 @@ async function registerCommands(context: ExtensionContext) {
         //If there is an error, log it and show an error message
         logError(e);
         const result = await window.showErrorMessage(
-          `Error during Discord RPC connection: ${e.name}`,
-          "Reconnect"
+          l10n.t("Error during Discord RPC connection: {0}", e.name),
+          l10n.t("Reconnect")
         );
         if (result === "Reconnect") {
           //If the user clicks "Reconnect", reconnect the RPC
@@ -262,8 +264,33 @@ async function registerCommands(context: ExtensionContext) {
     }
   );
 
+  //Toggle Private Mode
+  let togglePrivate = commands.registerCommand(
+    "vscoderpc.toggleprivate",
+    async () => {
+      try {
+        const configuration = workspace.getConfiguration("vscoderpc");
+        if (configuration.get("privateMode")) {
+          await workspace
+            .getConfiguration()
+            .update("vscoderpc.privateMode", false, ConfigurationTarget.Global);
+        } else {
+          await workspace
+            .getConfiguration()
+            .update("vscoderpc.privateMode", true, ConfigurationTarget.Global);
+          await commands.executeCommand("vscoderpc.reconnectrpc");
+        }
+      } catch (e: any) {
+        logError(e);
+        await window.showErrorMessage(
+          l10n.t("Error during Toggle Private Mode: {0}", e.name)
+        );
+      }
+    }
+  );
+
   //Push the commands to the context
-  context.subscriptions.push(startRPC, stopRPC, reloadRPC);
+  context.subscriptions.push(startRPC, stopRPC, reloadRPC, togglePrivate);
 }
 
 //Register Events
@@ -291,7 +318,23 @@ function registerEvents(context: ExtensionContext) {
 
   //Push the events to the context
   context.subscriptions.push(onFileChanged, onWindowStateChanged);
-
   //Log the event registration
   logInfo("Event listeners have been registered.");
+}
+
+async function getExtensionIconURL(): Promise<string | undefined> {
+  return axios
+    .get(
+      `https://raw.githubusercontent.com/LeonardSSH/vscord/main/assets/icons/${extname(
+        window.activeTextEditor?.document.uri.fsPath || "plaintext"
+      ).replace(".", "")}.png`
+    )
+    .then((res) => {
+      return `https://raw.githubusercontent.com/LeonardSSH/vscord/main/assets/icons/${extname(
+        window.activeTextEditor?.document.uri.fsPath || "plaintext"
+      ).replace(".", "")}.png`;
+    })
+    .catch(() => {
+      return "https://raw.githubusercontent.com/LeonardSSH/vscord/main/assets/icons/text.png";
+    });
 }

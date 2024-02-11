@@ -1,0 +1,9 @@
+{
+    "vscoderpc.startrpc": "VSCodeRPC: プリセンスを開始",
+    "vscoderpc.stoprpc": "VSCodeRPC: プリセンスを停止",
+    "vscoderpc.reconnectrpc": "VSCodeRPC: プリセンスを再起動",
+    "vscoderpc.toggleprivate": "VSCodeRPC: プライベートモードを切り替える",
+    "vscoderpc.enableDescription": "この拡張機能を有効にするかを選択します",
+    "vscoderpc.privatemodeDescription": "このモードを有効にすると、ファイル名とワークスペース名が表示されなくなります。",
+    "vscoderpc.clientIdDescription": "これが何かわかる場合のみ使用してください。デフォルトは \"1147502929687875614\"です。"
+}

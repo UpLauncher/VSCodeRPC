@@ -26,5 +26,5 @@ or Open Extensions (Ctrl+Shift+X) and install VS Code RPC.
 |  xhayper  |  @xhayper/discord-rpc  |
 |  leonardssh  |  Language Icon  |
 
-License
+# License
 This extension is licensed under the MIT License.

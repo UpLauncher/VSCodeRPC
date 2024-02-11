@@ -1,6 +1,17 @@
 # Change Log
 VS Code RPC Patch Notes. New features, bug fixes, etc.
 
+## V1.3.3 (Pre-release) - 02/11/2024
+Version 1.3.3 (Pre-release version) was released on 02/11/2024.
+
+### New features
+- l10n (localization) is now supported. Currently available in English and Japanese.
+ - (l10n(ローカライズ)をサポートしました。現在、英語と日本語を利用できます。)
+- The command to switch private mode has been restored.
+
+### Bug fixes
+- Fixed a bug that prevented large presense images from being displayed
+
 ## V1.3.2 - 02/11/2024
 Version 1.3.2 was released on 02/11/2024.
 
@@ -11,7 +22,7 @@ Version 1.3.2 was released on 02/11/2024.
 ## V1.3 - 09/21/2023
 Version 1.3 was released on 09/21/2023.
 
-### Bug fix
+### Bug fixes
 - Fixed an error when connecting to RPC
 ## V1.2 - 09/03/2023
 Version 1.2 was released on 09/03/2023.
