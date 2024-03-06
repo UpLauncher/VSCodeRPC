@@ -32,23 +32,23 @@ let idle = false;
  */
 export async function init(context: ExtensionContext) {
   //Log that the extension is started
-  logInfo("[init()] Registering events and commands.");
+  logInfo("[util.ts : init()] Registering events and commands.");
 
   //Register the events and commands
   registerEvents(context);
   registerCommands(context);
 
   //Log that the extension is activated
-  logInfo("[init()] Login to Discord RPC, and update the RPC.");
+  logInfo("[util.ts : init()] Login to Discord RPC, and update the RPC.");
   await rpc.login().then(() => {
     //Log that the extension is logged in to Discord RPC
-    logInfo("[init()] Logged in to Discord RPC...");
+    logInfo("[util.ts : init()] Logged in to Discord RPC...");
     setTimeout(function () {
       //Update the RPC after 2 seconds
       updateRPC(window.activeTextEditor?.document);
 
       //Log that the extension is activated
-      logInfo("[init()] Activate completed!");
+      logInfo("[util.ts : init()] Activate completed!");
     }, 2000);
   });
 }
